@@ -1,31 +1,43 @@
 package controllers
 
 import (
+	"encoding/json"
 	"github.com/julienschmidt/httprouter"
 	"golang.org/x/crypto/bcrypt"
+	"io/ioutil"
 	"log"
 	"net/http"
 )
 
-type body struct {
-	Username string `json:"user"`
-	Password string `json:"password"`
-	Email string `json:"email"`
+type user struct {
+	Username string          `json:"user"`
+	Password json.RawMessage `json:"password"`
+	Email    string          `json:"email"`
 }
 
 func (c *Controller) PostRegister(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 
-	body := decodeBody(r)
-
-	// hashes the password
-	hash, err := bcrypt.GenerateFromPassword([]byte(body.Password), bcrypt.DefaultCost)
+	// decodes the request body
+	body, err := ioutil.ReadAll(r.Body)
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	// inserts the new body
+	var usr user
+	err = json.Unmarshal(body, &usr)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	// hashes the password
+	hash, err := bcrypt.GenerateFromPassword(usr.Password, bcrypt.DefaultCost)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	// inserts the new user
 	query := `INSERT INTO "user" (email, username, password) VALUES ($1, $2, $3);`
-	_, err = c.Db.Exec(query, body.Email, body.Username, hash)
+	_, err = c.Db.Exec(query, usr.Email, usr.Username, hash)
 	if err != nil {
 		log.Fatal(err)
 	}

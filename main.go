@@ -15,6 +15,8 @@ import (
 
 func main() {
 
+	// Makes error line appear when an error happens
+	log.SetFlags(log.LstdFlags | log.Lshortfile)
 
 	// loads env variables
 	err := godotenv.Load()
@@ -48,22 +50,22 @@ func main() {
 
 	// wraps the session store and db pool in a struct to be passed to the handlers
 	controller := &controllers.Controller{
-		Db:db,
-		SessionStore:store,
+		Db:           db,
+		SessionStore: store,
 	}
 
 	// initiates router
 	router := httprouter.New()
 
 	// lists routes with the controller methods
-	/*router.POST("/register", controller.PostRegister)
-	router.POST("/login", controller.PostLogin)*/
+	router.POST("/register", controller.PostRegister)
+	router.POST("/login", controller.PostLogin)
 
 	// binds cors options to the router
 	c := cors.New(cors.Options{
-		AllowedOrigins:		[]string{"http://127.0.0.1:8081"},
-		AllowedMethods:     []string{"OPTIONS", "POST", "GET"},
-		AllowedHeaders:     []string{"Origin", "Content-Type", "Content-Length", "Set-Cookie"},
+		AllowedOrigins:   []string{os.Getenv("FRONT-END-ADDRESS")},
+		AllowedMethods:   []string{"OPTIONS", "POST", "GET"},
+		AllowedHeaders:   []string{"Origin", "Content-Type", "Content-Length", "Set-Cookie"},
 		AllowCredentials: true,
 	})
 	handler := c.Handler(router)
