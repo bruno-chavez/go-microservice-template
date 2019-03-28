@@ -1,3 +1,5 @@
+// Package main takes care of creating the db connection pool, opening the Redis session store,
+// load environment variables, register routes and handlers, enabling CORS requests and initiating the server
 package main
 
 import (
@@ -6,9 +8,9 @@ import (
 	"github.com/julienschmidt/httprouter"
 	_ "github.com/lib/pq"
 	"github.com/rs/cors"
+	"go-web-template/controllers"
 	"gopkg.in/boj/redistore.v1"
 	"log"
-	"miller/controllers"
 	"net/http"
 	"os"
 )
@@ -70,5 +72,6 @@ func main() {
 	})
 	handler := c.Handler(router)
 
+	// starts the server
 	log.Fatal(http.ListenAndServe(":8080", handler))
 }

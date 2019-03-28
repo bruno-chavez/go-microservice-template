@@ -17,12 +17,11 @@ type user struct {
 
 func (c *Controller) PostRegister(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 
-	// decodes the request body
+	// decodes the request body into a user struct
 	body, err := ioutil.ReadAll(r.Body)
 	if err != nil {
 		log.Fatal(err)
 	}
-
 	var usr user
 	err = json.Unmarshal(body, &usr)
 	if err != nil {
@@ -35,7 +34,7 @@ func (c *Controller) PostRegister(w http.ResponseWriter, r *http.Request, p http
 		log.Fatal(err)
 	}
 
-	// inserts the new user
+	// inserts the new user into the db
 	query := `INSERT INTO "user" (email, username, password) VALUES ($1, $2, $3);`
 	_, err = c.Db.Exec(query, usr.Email, usr.Username, hash)
 	if err != nil {
