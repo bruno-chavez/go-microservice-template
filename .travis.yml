@@ -1,5 +1,11 @@
 language: go
 
+go:
+  - "1.12"
+
+env:
+  - GO111MODULE=on
+
 notifications:
   email:
     on_success: never
