@@ -1,0 +1,25 @@
+language: go
+
+notifications:
+  email:
+    on_success: never
+
+# Once your project is ready you can enable the following lines to build binaries with each tag
+  #release and deploying them on github
+
+#before_deploy:
+#  - GOOS=linux GOARCH=amd64 go build -o ancestorquotes-linux-amd64
+#  - GOOS=windows GOARCH=amd64 go build -o ancestorquotes-windows-amd64.exe
+#  - GOOS=darwin GOARCH=amd64 go build -o ancestorquotes-macos-amd64
+#
+#deploy:
+#  provider: releases
+#  skip_cleanup: true
+#  api_key:
+#   secure: SECURE KEY HERE
+#  file:
+#    - "ancestorquotes-linux-amd64"
+#    - "ancestorquotes-windows-amd64.exe"
+#    - "ancestorquotes-macos-amd64"
+#  on:
+#    tags: true
