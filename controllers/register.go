@@ -9,12 +9,14 @@ import (
 	"net/http"
 )
 
+// user struct is used to map the request body to a struct
 type user struct {
 	Username string          `json:"user"`
 	Password json.RawMessage `json:"password"`
 	Email    string          `json:"email"`
 }
 
+// PostRegister handles POST request to /register
 func (c *Controller) PostRegister(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 
 	// decodes the request body into a user struct
