@@ -8,7 +8,7 @@ import (
 	"github.com/julienschmidt/httprouter"
 	_ "github.com/lib/pq"
 	"github.com/rs/cors"
-	"github/bruno-chavez/go-web-template/controllers"
+	"go-web-template/controllers"
 	"gopkg.in/boj/redistore.v1"
 	"log"
 	"net/http"

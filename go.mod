@@ -1,4 +1,4 @@
-module github/bruno-chavez/go-web-template
+module go-web-template
 
 go 1.12
 
