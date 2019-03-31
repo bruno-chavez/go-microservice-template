@@ -5,21 +5,21 @@
 # Description
 
 `go-web-template` main purpose is to be a starting point 
-for a back-end web service developed in Go, usually just as a 
-REST API for any front-end project in Vue/React/Angular.
+for a web back-end developed in Go, usually just as a 
+REST API for any kind of front-end project.
 
 # Features 
 
 + Session management with 
 [gorilla/sessions](https://github.com/gorilla/sessions) and 
-Redis as session store with 
+Redis as a session store with 
 [redistore](https://github.com/boj/redistore).
 
 + Ready to use Relational Database to store user and domain data with PostgreSQL,
 [lib/pq](https://github.com/lib/pq) as the driver and 
 [sqlx](https://github.com/jmoiron/sqlx) to help with the raw queries.
 
-+ Safely hashes and salts user passwords with [bcrypt](https://godoc.org/golang.org/x/crypto/bcrypt), no more
++ Safely hashes and salts user passwords with the official [bcrypt](https://godoc.org/golang.org/x/crypto/bcrypt) implementation.
 
 + Fast and easy to use router with [httprouter](https://github.com/julienschmidt/httprouter).
 
@@ -31,20 +31,27 @@ Redis as session store with
 
 + Continuous Integration with Travis-CI.
 
-+ Each route has access to the sessions store 
-and the db connection pool thanks to dependency injection 
-(simply reference `c.Db` or `c.SessionStore` once 
-your handlers are methods of the `Controller` struct).
++ Each route has access to the session store 
+and the db connection pool thanks to dependency injection.
+Simply reference `c.Db` or `c.SessionStore` once 
+your handlers are methods of the `Controller` struct. 
+See how the methods `PostRegister` and `PostLogin` are implemented 
+for examples of how you can access the db pool 
+or the session store from any controller.
 
 # To Do
+
++ Middleware examples.
 
 + Implement HTTPS with [certmagic](https://github.com/mholt/certmagic).
 
 + Database migrations with either 
-[sql-migrate](https://github.com/rubenv/sql-migrate) or 
-[migrate](https://github.com/golang-migrate/migrate).
+[sql-migrate](https://github.com/rubenv/sql-migrate), 
+[migrate](https://github.com/golang-migrate/migrate) or [goose]()
 
 + Unit testing.
+
++ Dockerfile to be deployed as a container.
 
 # Contribute
 
