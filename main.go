@@ -13,6 +13,7 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"strconv"
 )
 
 func main() {
@@ -26,12 +27,14 @@ func main() {
 		log.Fatal("Error loading .env file")
 	}
 
+	storeSize, err := strconv.Atoi(os.Getenv("REDIS_STORE_SIZE"))
+
 	// connects to redis session store
-	store, err := redistore.NewRediStore(10,
-		"tcp",
-		":6379",
-		"",
-		[]byte(os.Getenv("SESSION_KEY")))
+	store, err := redistore.NewRediStore(storeSize,
+		os.Getenv("REDIS_STORE_NETWORK"),
+		os.Getenv("REDIS_STORE_ADDRESS"),
+		os.Getenv("REDIS_STORE_PASSWORD"),
+		[]byte(os.Getenv("REDIS_SESSION_KEY")))
 	if err != nil {
 		log.Fatal(err)
 	}
