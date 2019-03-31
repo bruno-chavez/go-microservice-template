@@ -11,7 +11,7 @@ import (
 
 // dbUser is used to map the query result to a struct
 type dbUser struct {
-	Id       int    `db:"user-id"`
+	Id       int    `db:"user_id"`
 	Username string `db:"username"`
 	Password string `db:"password"`
 	Email    string `db:"email"`
