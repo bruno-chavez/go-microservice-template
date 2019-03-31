@@ -8,6 +8,30 @@
 for a web back-end developed in Go, usually just as a 
 REST API for any kind of front-end project.
 
+# How to use
+
+1. Download files and put them outside of your GOPATH.
+
+2. Download dependencies with:
+```
+$ go install
+```
+
+3. Have Redis install and the server running.
+
+4. Have postgres installed.
+
+5. Create an `.env` file at root level, example:
+```
+REDIS_SESSION_KEY=YourSecretKey
+REDIS_STORE_SIZE=10
+REDIS_STORE_NETWORK=tcp
+REDIS_STORE_ADDRESS=:6379
+REDIS_STORE_PASSWORD=
+POSTGRES=user=postgres password=password dbname=database sslmode=disable
+FRONT-END-ADDRESS=http://example.com
+```
+
 # Features 
 
 + Session management with 
@@ -15,9 +39,12 @@ REST API for any kind of front-end project.
 Redis as a session store with 
 [redistore](https://github.com/boj/redistore).
 
-+ Ready to use Relational Database to store user and domain data with PostgreSQL,
++ Ready to use Relational Database connection to store user and domain data with PostgreSQL,
 [lib/pq](https://github.com/lib/pq) as the driver and 
 [sqlx](https://github.com/jmoiron/sqlx) to help with the raw queries.
+
++ Migration file for a `user` table. 
+Currently no automatic way of running this files is provided.
 
 + Safely hashes and salts user passwords with the official [bcrypt](https://godoc.org/golang.org/x/crypto/bcrypt) implementation.
 
