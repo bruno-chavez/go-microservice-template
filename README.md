@@ -43,11 +43,13 @@ or the session store from any controller.
 
 + Middleware examples.
 
-+ Implement HTTPS with [certmagic](https://github.com/mholt/certmagic).
++ Implement HTTPS with 
+[certmagic](https://github.com/mholt/certmagic).
 
 + Database migrations with either 
 [sql-migrate](https://github.com/rubenv/sql-migrate), 
-[migrate](https://github.com/golang-migrate/migrate) or [goose]()
+[migrate](https://github.com/golang-migrate/migrate) 
+or [goose](https://github.com/pressly/goose).
 
 + Unit testing.
 
@@ -55,9 +57,13 @@ or the session store from any controller.
 
 # Contribute
 
-Found an bug or an error? Post it in the [issue tracker](https://github.com/bruno-chavez/go-web-template/issues).
+Found an bug or an error? Post it in the 
+[issue tracker](https://github.com/bruno-chavez/go-web-template/issues).
 
-Want to add an awesome new feature? [Fork](https://github.com/bruno-chavez/go-web-template/fork) this repository, add your feature on a new branch, then send a pull request.
+Want to add an awesome new feature? 
+[Fork](https://github.com/bruno-chavez/go-web-template/fork) 
+this repository, add your feature on a new branch, 
+then send a pull request.
 
 # License
 The MIT License (MIT)
