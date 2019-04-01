@@ -17,11 +17,13 @@ REST API for any kind of front-end project.
 $ go install
 ```
 
-3. Have Redis install and the server running.
+3. Have Redis installed and a server running.
 
-4. Have postgres installed.
+4. Have PostgresSQL installed.
 
-5. Create an `.env` file at root level, example:
+5. Run Migrations.
+
+6. Create an `.env` file at root level, example:
 ```
 REDIS_SESSION_KEY=YourSecretKey
 REDIS_STORE_SIZE=10
@@ -34,25 +36,35 @@ FRONT-END-ADDRESS=http://example.com
 
 # Features 
 
-+ Session management with 
++ Ready to use custom authentication routes, for registering 
+and login users.
+
++ Ready to use session management with 
 [gorilla/sessions](https://github.com/gorilla/sessions) and 
 Redis as a session store with 
 [redistore](https://github.com/boj/redistore).
 
-+ Ready to use Relational Database connection to store user and domain data with PostgreSQL,
++ Ready to use Relational Database connection to store user 
+and domain data with PostgreSQL,
 [lib/pq](https://github.com/lib/pq) as the driver and 
-[sqlx](https://github.com/jmoiron/sqlx) to help with the raw queries.
+[sqlx](https://github.com/jmoiron/sqlx) 
+to help with the raw queries.
+
++ Ready to handle CORS requests with 
+[rs/cors](https://github.com/rs/cors).
+
++ Safely hashes and salts user passwords with the official 
+[bcrypt](https://godoc.org/golang.org/x/crypto/bcrypt) 
+implementation.
+
++ Fast and easy to use router with 
+[httprouter](https://github.com/julienschmidt/httprouter).
 
 + Migration file for a `user` table. 
-Currently no automatic way of running this files is provided.
+Currently no automatic way of running migrations is provided.
 
-+ Safely hashes and salts user passwords with the official [bcrypt](https://godoc.org/golang.org/x/crypto/bcrypt) implementation.
-
-+ Fast and easy to use router with [httprouter](https://github.com/julienschmidt/httprouter).
-
-+ Ready to handle CORS requests with [rs/cors](https://github.com/rs/cors).
-
-+ Loads environment variables from an `.env` file with the help of [godotenv](https://github.com/joho/godotenv).
++ Loads environment variables from an `.env` file 
+with the help of [godotenv](https://github.com/joho/godotenv).
 
 + Dependancy management with Go Modules.
 
@@ -80,7 +92,7 @@ or [goose](https://github.com/pressly/goose).
 
 + Unit testing.
 
-+ Dockerfile to be deployed as a container.
++ Dockerfile for deploying.
 
 # Contribute
 
