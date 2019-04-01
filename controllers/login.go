@@ -4,7 +4,6 @@ import (
 	"encoding/json"
 	"github.com/julienschmidt/httprouter"
 	"golang.org/x/crypto/bcrypt"
-	"io/ioutil"
 	"log"
 	"net/http"
 )
@@ -20,13 +19,8 @@ type dbUser struct {
 // PostLogin handles POST request to /login
 func (c *Controller) PostLogin(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 
-	// decodes the request body into a user struct
-	b, err := ioutil.ReadAll(r.Body)
-	if err != nil {
-		log.Fatal(err)
-	}
 	var usr user
-	err = json.Unmarshal(b, &usr)
+	err := json.NewDecoder(r.Body).Decode(&usr)
 	if err != nil {
 		log.Fatal(err)
 	}

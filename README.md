@@ -37,7 +37,7 @@ FRONT-END-ADDRESS=http://example.com
 # Features 
 
 + Ready to use custom authentication routes, for registering, 
-login and logout users.
+login in and login out users.
 
 + Ready to use session management with 
 [gorilla/sessions](https://github.com/gorilla/sessions) and 
