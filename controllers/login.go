@@ -48,6 +48,7 @@ func (c *Controller) PostLogin(w http.ResponseWriter, r *http.Request, _ httprou
 		if err != nil {
 			log.Fatal(err)
 		}
+		return
 	}
 
 	// retrieves the session if it exists or creates a new one if there isn't one already
