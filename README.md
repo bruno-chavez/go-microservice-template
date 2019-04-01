@@ -21,7 +21,7 @@ $ go install
 
 4. Have PostgresSQL installed.
 
-5. Run Migrations.
+5. Run migrations.
 
 6. Create an `.env` file at root level, example:
 ```
@@ -36,8 +36,8 @@ FRONT-END-ADDRESS=http://example.com
 
 # Features 
 
-+ Ready to use custom authentication routes, for registering 
-and login users.
++ Ready to use custom authentication routes, for registering, 
+login and logout users.
 
 + Ready to use session management with 
 [gorilla/sessions](https://github.com/gorilla/sessions) and 

@@ -37,11 +37,16 @@ func (c *Controller) PostLogin(w http.ResponseWriter, r *http.Request, _ httprou
 
 	err = c.Db.Get(&queryResult, query, usr.Email)
 	if err != nil {
-		log.Fatal(err)
+		w.WriteHeader(http.StatusForbidden)
+		_, err = w.Write([]byte("false"))
+		if err != nil {
+			log.Fatal(err)
+		}
+		return
 	}
 
 	// compares the request password with the one stored in the db
-	err = bcrypt.CompareHashAndPassword([]byte(queryResult.Password), []byte(usr.Password))
+	err = bcrypt.CompareHashAndPassword([]byte(queryResult.Password), usr.Password)
 	if err != nil {
 		w.WriteHeader(http.StatusForbidden)
 		_, err = w.Write([]byte("false"))
