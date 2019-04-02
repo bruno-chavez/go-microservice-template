@@ -65,7 +65,7 @@ func main() {
 	// lists routes with the controller methods
 	router.POST("/register", controller.PostRegister)
 	router.POST("/login", controller.PostLogin)
-	router.POST("/logout", controller.PostLogout)
+	router.DELETE("/logout", controller.DeleteLogout)
 
 	// binds cors options to the router
 	c := cors.New(cors.Options{

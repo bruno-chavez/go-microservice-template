@@ -7,7 +7,7 @@ import (
 	"net/http"
 )
 
-func (c *Controller) PostLogout(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
+func (c *Controller) DeleteLogout(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 	session, err := c.SessionStore.Get(r, "user")
 	if err != nil {
 		log.Fatal(err)

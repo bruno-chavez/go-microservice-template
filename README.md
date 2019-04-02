@@ -5,8 +5,8 @@
 # Description
 
 `go-web-template` main purpose is to be a starting point 
-for a web back-end developed in Go, usually just as a 
-REST API for any kind of front-end project.
+for web development in Go, 
+usually just as a API for a front-end application.
 
 # How to use
 
@@ -19,9 +19,9 @@ $ go install
 
 3. Have Redis installed and a server running.
 
-4. Have PostgresSQL installed.
+4. Have PostgresSQL installed and a database created.
 
-5. Run migrations.
+5. Run migrations or alternately create the table manually.
 
 6. Create an `.env` file at root level, example:
 ```
@@ -39,7 +39,7 @@ FRONT-END-ADDRESS=http://example.com
 + Ready to use custom authentication routes, for registering, 
 login in and login out users.
 
-+ Ready to use session management with 
++ Ready to use cookie based session management with 
 [gorilla/sessions](https://github.com/gorilla/sessions) and 
 Redis as a session store with 
 [redistore](https://github.com/boj/redistore).
@@ -74,7 +74,8 @@ with the help of [godotenv](https://github.com/joho/godotenv).
 and the db connection pool thanks to dependency injection.
 Simply reference `c.Db` or `c.SessionStore` once 
 your handlers are methods of the `Controller` struct. 
-See how the methods `PostRegister` and `PostLogin` are implemented 
+See how the methods `PostRegister`, `PostLogin` 
+and `DeleteLogout` are implemented 
 for examples of how you can access the db pool 
 or the session store from any controller.
 
