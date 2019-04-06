@@ -39,7 +39,7 @@ FRONT-END-ADDRESS=http://example.com
 + Ready to use custom authentication routes, for registering, 
 login in and login out users.
 
-+ Ready to use cookie based session management with 
++ Ready to use cookie based sessions with 
 [gorilla/sessions](https://github.com/gorilla/sessions) and 
 Redis as a session store with 
 [redistore](https://github.com/boj/redistore).
@@ -93,7 +93,7 @@ or [goose](https://github.com/pressly/goose).
 
 + Unit testing.
 
-+ Dockerfile for deploying.
++ Dockerfile for deploying as a container.
 
 # Contribute
 
