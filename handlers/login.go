@@ -1,4 +1,4 @@
-package controllers
+package handlers
 
 import (
 	"encoding/json"
@@ -31,8 +31,7 @@ func (c *Controller) PostLogin(w http.ResponseWriter, r *http.Request, _ httprou
 
 	err = c.Db.Get(&queryResult, query, usr.Email)
 	if err != nil {
-		w.WriteHeader(http.StatusForbidden)
-		_, err = w.Write([]byte("false"))
+		err = writeJSON(w, "unauthorized", http.StatusForbidden)
 		if err != nil {
 			log.Fatal(err)
 		}
@@ -42,8 +41,7 @@ func (c *Controller) PostLogin(w http.ResponseWriter, r *http.Request, _ httprou
 	// compares the request password with the one stored in the db
 	err = bcrypt.CompareHashAndPassword([]byte(queryResult.Password), usr.Password)
 	if err != nil {
-		w.WriteHeader(http.StatusForbidden)
-		_, err = w.Write([]byte("false"))
+		err = writeJSON(w, "unauthorized", http.StatusForbidden)
 		if err != nil {
 			log.Fatal(err)
 		}
@@ -66,8 +64,8 @@ func (c *Controller) PostLogin(w http.ResponseWriter, r *http.Request, _ httprou
 		log.Fatal(err)
 	}
 
-	// writes a response if all went ok
-	_, err = w.Write([]byte("true"))
+	// writes response message
+	err = writeJSON(w, "authenticated", http.StatusCreated)
 	if err != nil {
 		log.Fatal(err)
 	}

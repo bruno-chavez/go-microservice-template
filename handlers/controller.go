@@ -1,5 +1,5 @@
-// Package controllers is where all the routes are located
-package controllers
+// Package handlers is where all the routes are located
+package handlers
 
 import (
 	"github.com/jmoiron/sqlx"

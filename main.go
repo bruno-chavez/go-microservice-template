@@ -8,7 +8,7 @@ import (
 	"github.com/julienschmidt/httprouter"
 	_ "github.com/lib/pq"
 	"github.com/rs/cors"
-	"go-web-template/controllers"
+	"go-web-template/handlers"
 	"gopkg.in/boj/redistore.v1"
 	"log"
 	"net/http"
@@ -54,7 +54,7 @@ func main() {
 	}()
 
 	// wraps the session store and db pool in a struct to be passed to the handlers
-	controller := &controllers.Controller{
+	controller := &handlers.Controller{
 		Db:           db,
 		SessionStore: store,
 	}

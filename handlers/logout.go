@@ -1,4 +1,4 @@
-package controllers
+package handlers
 
 import (
 	"github.com/gorilla/sessions"
@@ -20,8 +20,7 @@ func (c *Controller) DeleteLogout(w http.ResponseWriter, r *http.Request, _ http
 		log.Fatal(err)
 	}
 
-	// writes a response if all went ok
-	_, err = w.Write([]byte("session deleted successfully"))
+	err = writeJSON(w, "logged out", http.StatusOK)
 	if err != nil {
 		log.Fatal(err)
 	}

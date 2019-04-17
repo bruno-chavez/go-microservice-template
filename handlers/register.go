@@ -1,4 +1,4 @@
-package controllers
+package handlers
 
 import (
 	"encoding/json"
@@ -37,5 +37,8 @@ func (c *Controller) PostRegister(w http.ResponseWriter, r *http.Request, p http
 		log.Fatal(err)
 	}
 
-	w.WriteHeader(http.StatusCreated)
+	err = writeJSON(w, "created", http.StatusCreated)
+	if err != nil {
+		log.Fatal(err)
+	}
 }
