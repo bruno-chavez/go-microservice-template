@@ -10,7 +10,7 @@ import (
 
 // user struct is used to map the request body to a struct
 type user struct {
-	Username string          `json:"user"`
+	Username string          `json:"username"`
 	Password json.RawMessage `json:"password"`
 	Email    string          `json:"email"`
 }
