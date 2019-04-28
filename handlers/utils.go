@@ -15,7 +15,6 @@ func writeJSON(w http.ResponseWriter, value string, status int) error {
 	w.WriteHeader(status)
 
 	message := response{Message: value}
-
 	marshaledData, err := json.Marshal(message)
 	if err != nil {
 		return err
