@@ -1,5 +1,5 @@
 // Package main takes care of creating the db connection pool, opening the Redis session store,
-// load environment variables, register routes and handlers, enabling CORS requests and initiating the server
+// load environment variables, register routes and handlers, enables CORS and initiates the server
 package main
 
 import (
@@ -18,38 +18,41 @@ import (
 
 func main() {
 
-	// Makes error line appear when an error happens
+	// Makes code line show on errors
 	log.SetFlags(log.LstdFlags | log.Lshortfile)
 
 	// loads env variables
 	err := godotenv.Load()
 	if err != nil {
-		log.Fatal("Error loading .env file")
+		log.Println("Error loading .env file")
 	}
 
 	storeSize, err := strconv.Atoi(os.Getenv("REDIS_STORE_SIZE"))
+	if err != nil {
+		log.Println(err)
+	}
 
 	// connects to redis session store
 	store, err := redistore.NewRediStore(storeSize,
-		os.Getenv("REDIS_STORE_NETWORK"),
+		"tcp",
 		os.Getenv("REDIS_STORE_ADDRESS"),
 		os.Getenv("REDIS_STORE_PASSWORD"),
 		[]byte(os.Getenv("REDIS_SESSION_KEY")))
 	if err != nil {
-		log.Fatal(err)
+		log.Println(err)
 	}
 
 	// connects to db
 	db, err := sqlx.Connect("postgres", os.Getenv("POSTGRES"))
 	if err != nil {
-		log.Fatal(err)
+		log.Println(err)
 	}
 
 	// closes db connection
 	defer func() {
 		err := db.Close()
 		if err != nil {
-			log.Fatal(err)
+			log.Println(err)
 		}
 	}()
 
@@ -70,12 +73,12 @@ func main() {
 	// binds cors options to the router
 	c := cors.New(cors.Options{
 		AllowedOrigins:   []string{os.Getenv("FRONT-END-ADDRESS")},
-		AllowedMethods:   []string{"OPTIONS", "POST", "GET"},
+		AllowedMethods:   []string{"OPTIONS", "POST", "GET", "DELETE"},
 		AllowedHeaders:   []string{"Origin", "Content-Type", "Content-Length", "Set-Cookie"},
 		AllowCredentials: true,
 	})
 	handler := c.Handler(router)
 
 	// starts the server
-	log.Fatal(http.ListenAndServe(":8080", handler))
+	log.Println(http.ListenAndServe(":8080", handler))
 }

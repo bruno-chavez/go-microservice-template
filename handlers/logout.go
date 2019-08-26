@@ -11,18 +11,18 @@ func (c *Controller) DeleteLogout(w http.ResponseWriter, r *http.Request, _ http
 
 	session, err := c.SessionStore.Get(r, "user")
 	if err != nil {
-		log.Fatal(err)
+		log.Println(err)
 	}
 
 	// Deletes session on the Redis store.
 	session.Options.MaxAge = -1
 	err = sessions.Save(r, w)
 	if err != nil {
-		log.Fatal(err)
+		log.Println(err)
 	}
 
 	err = writeJSON(w, "logged out", http.StatusOK)
 	if err != nil {
-		log.Fatal(err)
+		log.Println(err)
 	}
 }

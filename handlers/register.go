@@ -8,7 +8,7 @@ import (
 	"net/http"
 )
 
-// user struct is used to map the request body to a struct
+// user is used to map the request body to a struct
 type user struct {
 	Username string          `json:"username"`
 	Password json.RawMessage `json:"password"`
@@ -21,24 +21,24 @@ func (c *Controller) PostRegister(w http.ResponseWriter, r *http.Request, p http
 	var usr user
 	err := json.NewDecoder(r.Body).Decode(&usr)
 	if err != nil {
-		log.Fatal(err)
+		log.Println(err)
 	}
 
 	// hashes the password
 	hash, err := bcrypt.GenerateFromPassword(usr.Password, bcrypt.DefaultCost)
 	if err != nil {
-		log.Fatal(err)
+		log.Println(err)
 	}
 
 	// inserts the new user into the db
 	query := `INSERT INTO "user" (email, username, password) VALUES ($1, $2, $3);`
 	_, err = c.Db.Exec(query, usr.Email, usr.Username, hash)
 	if err != nil {
-		log.Fatal(err)
+		log.Println(err)
 	}
 
-	err = writeJSON(w, "created", http.StatusCreated)
+	err = writeJSON(w, "user created", http.StatusCreated)
 	if err != nil {
-		log.Fatal(err)
+		log.Println(err)
 	}
 }

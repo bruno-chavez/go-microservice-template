@@ -10,7 +10,7 @@ usually just as a API for a front-end application.
 
 # How to use
 
-1. Download files and put them outside of your GOPATH.
+1. Download project and put them outside of your GOPATH.
 
 2. Download dependencies with:
 ```
@@ -21,13 +21,12 @@ $ go install
 
 4. Have PostgresSQL installed and a database created.
 
-5. Run migrations or alternately create the table manually.
+5. Run sql script or alternately create the table manually.
 
-6. Create an `.env` file at root level, example:
+6. Create an `.env` file at root level, for example:
 ```
 REDIS_SESSION_KEY=YourSecretKey
 REDIS_STORE_SIZE=10
-REDIS_STORE_NETWORK=tcp
 REDIS_STORE_ADDRESS=:6379
 REDIS_STORE_PASSWORD=
 POSTGRES=user=postgres password=password dbname=database sslmode=disable
@@ -66,7 +65,7 @@ Currently no automatic way of running migrations is provided.
 + Loads environment variables from an `.env` file 
 with the help of [godotenv](https://github.com/joho/godotenv).
 
-+ Dependancy management with Go Modules.
++ Dependency management with Go Modules.
 
 + Continuous Integration with Travis-CI.
 
@@ -92,8 +91,6 @@ or the session store from any controller.
 or [goose](https://github.com/pressly/goose).
 
 + Unit testing.
-
-+ Dockerfile for deploying as a container.
 
 # Contribute
 

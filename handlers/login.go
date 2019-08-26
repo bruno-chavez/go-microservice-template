@@ -22,7 +22,7 @@ func (c *Controller) PostLogin(w http.ResponseWriter, r *http.Request, _ httprou
 	var usr user
 	err := json.NewDecoder(r.Body).Decode(&usr)
 	if err != nil {
-		log.Fatal(err)
+		log.Println(err)
 	}
 
 	// the query expects a single user and maps it into a dbUser
@@ -33,7 +33,7 @@ func (c *Controller) PostLogin(w http.ResponseWriter, r *http.Request, _ httprou
 	if err != nil {
 		err = writeJSON(w, "unauthorized", http.StatusForbidden)
 		if err != nil {
-			log.Fatal(err)
+			log.Println(err)
 		}
 		return
 	}
@@ -43,7 +43,7 @@ func (c *Controller) PostLogin(w http.ResponseWriter, r *http.Request, _ httprou
 	if err != nil {
 		err = writeJSON(w, "unauthorized", http.StatusForbidden)
 		if err != nil {
-			log.Fatal(err)
+			log.Println(err)
 		}
 		return
 	}
@@ -51,7 +51,7 @@ func (c *Controller) PostLogin(w http.ResponseWriter, r *http.Request, _ httprou
 	// retrieves the session if it exists or creates a new one if there isn't one already
 	session, err := c.SessionStore.Get(r, "user")
 	if err != nil {
-		log.Fatal(err)
+		log.Println(err)
 	}
 
 	// sets a type and id to the session
@@ -61,12 +61,12 @@ func (c *Controller) PostLogin(w http.ResponseWriter, r *http.Request, _ httprou
 	// saves the session data
 	err = session.Save(r, w)
 	if err != nil {
-		log.Fatal(err)
+		log.Println(err)
 	}
 
 	// writes response message
 	err = writeJSON(w, "authenticated", http.StatusCreated)
 	if err != nil {
-		log.Fatal(err)
+		log.Println(err)
 	}
 }
