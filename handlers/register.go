@@ -35,6 +35,11 @@ func (c *Controller) PostRegister(w http.ResponseWriter, r *http.Request, p http
 	_, err = c.Db.Exec(query, usr.Email, usr.Username, hash)
 	if err != nil {
 		log.Println(err)
+		err = writeJSON(w, "username or email not unique", http.StatusBadRequest)
+		if err != nil {
+			log.Println(err)
+		}
+		return
 	}
 
 	err = writeJSON(w, "user created", http.StatusCreated)

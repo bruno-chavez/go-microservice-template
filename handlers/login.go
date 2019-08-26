@@ -31,7 +31,7 @@ func (c *Controller) PostLogin(w http.ResponseWriter, r *http.Request, _ httprou
 
 	err = c.Db.Get(&queryResult, query, usr.Email)
 	if err != nil {
-		err = writeJSON(w, "unauthorized", http.StatusForbidden)
+		err = writeJSON(w, "wrong email or password", http.StatusForbidden)
 		if err != nil {
 			log.Println(err)
 		}
@@ -41,7 +41,7 @@ func (c *Controller) PostLogin(w http.ResponseWriter, r *http.Request, _ httprou
 	// compares the request password with the one stored in the db
 	err = bcrypt.CompareHashAndPassword([]byte(queryResult.Password), usr.Password)
 	if err != nil {
-		err = writeJSON(w, "unauthorized", http.StatusForbidden)
+		err = writeJSON(w, "wrong email or password", http.StatusForbidden)
 		if err != nil {
 			log.Println(err)
 		}
