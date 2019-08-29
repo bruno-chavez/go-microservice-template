@@ -9,7 +9,7 @@ import (
 
 func (c *Controller) DeleteLogout(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 
-	session, err := c.SessionStore.Get(r, "user")
+	session, err := c.SessionStore.Get(r, "requestUser")
 	if err != nil {
 		log.Println(err)
 	}

@@ -8,8 +8,8 @@ import (
 	"net/http"
 )
 
-// user is used to map the request body to a struct
-type user struct {
+// requestUser is used to map the request body to a struct
+type requestUser struct {
 	Username string          `json:"username"`
 	Password json.RawMessage `json:"password"`
 	Email    string          `json:"email"`
@@ -18,7 +18,7 @@ type user struct {
 // PostRegister handles POST request to /register
 func (c *Controller) PostRegister(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 
-	var usr user
+	var usr requestUser
 	err := json.NewDecoder(r.Body).Decode(&usr)
 	if err != nil {
 		log.Println(err)
@@ -30,8 +30,8 @@ func (c *Controller) PostRegister(w http.ResponseWriter, r *http.Request, p http
 		log.Println(err)
 	}
 
-	// inserts the new user into the db
-	query := `INSERT INTO "user" (email, username, password) VALUES ($1, $2, $3);`
+	// inserts the new requestUser into the db
+	query := `INSERT INTO "requestUser" (email, username, password) VALUES ($1, $2, $3);`
 	_, err = c.Db.Exec(query, usr.Email, usr.Username, hash)
 	if err != nil {
 		log.Println(err)
@@ -42,7 +42,7 @@ func (c *Controller) PostRegister(w http.ResponseWriter, r *http.Request, p http
 		return
 	}
 
-	err = writeJSON(w, "user created", http.StatusCreated)
+	err = writeJSON(w, "requestUser created", http.StatusCreated)
 	if err != nil {
 		log.Println(err)
 	}

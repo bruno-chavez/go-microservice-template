@@ -19,15 +19,16 @@ type dbUser struct {
 // PostLogin handles POST request to /login
 func (c *Controller) PostLogin(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 
-	var usr user
+	// a requestUser struct is used for simplicity even though the username field won't be filled
+	var usr requestUser
 	err := json.NewDecoder(r.Body).Decode(&usr)
 	if err != nil {
 		log.Println(err)
 	}
 
-	// the query expects a single user and maps it into a dbUser
+	// the query expects a single requestUser and maps it into a dbUser
 	var queryResult dbUser
-	query := `SELECT * FROM "user" WHERE email = $1;`
+	query := `SELECT * FROM "requestUser" WHERE email = $1;`
 
 	err = c.Db.Get(&queryResult, query, usr.Email)
 	if err != nil {
@@ -48,17 +49,17 @@ func (c *Controller) PostLogin(w http.ResponseWriter, r *http.Request, _ httprou
 		return
 	}
 
-	// retrieves the session if it exists or creates a new one if there isn't one already
-	session, err := c.SessionStore.Get(r, "user")
+	// retrieves the session if it exists or creates a new one if it doesn't
+	session, err := c.SessionStore.Get(r, "requestUser")
 	if err != nil {
 		log.Println(err)
 	}
 
 	// sets a type and id to the session
-	session.Values["type"] = "user"
+	session.Values["type"] = "requestUser"
 	session.Values["id"] = queryResult.Id
 
-	// saves the session data
+	// saves session data
 	err = session.Save(r, w)
 	if err != nil {
 		log.Println(err)
