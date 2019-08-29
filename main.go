@@ -27,23 +27,23 @@ func main() {
 		log.Println("Error loading .env file")
 	}
 
-	storeSize, err := strconv.Atoi(os.Getenv("REDIS_STORE_SIZE"))
+	storeSize, err := strconv.Atoi(os.Getenv("SESSION_STORE_SIZE"))
 	if err != nil {
 		log.Println(err)
 	}
 
-	// connects to redis session store
+	// connects to the Redis session store
 	store, err := redistore.NewRediStore(storeSize,
 		"tcp",
-		os.Getenv("REDIS_STORE_ADDRESS"),
-		os.Getenv("REDIS_STORE_PASSWORD"),
-		[]byte(os.Getenv("REDIS_SESSION_KEY")))
+		os.Getenv("SESSION_STORE_ADDRESS"),
+		os.Getenv("SESSION_STORE_PASSWORD"),
+		[]byte(os.Getenv("SESSION_STORE_KEY")))
 	if err != nil {
 		log.Println(err)
 	}
 
-	// connects to db
-	db, err := sqlx.Connect("postgres", os.Getenv("POSTGRES"))
+	// connects to the db
+	db, err := sqlx.Connect("postgres", os.Getenv("DB"))
 	if err != nil {
 		log.Println(err)
 	}
@@ -65,10 +65,11 @@ func main() {
 	// initiates router
 	router := httprouter.New()
 
-	// lists routes with the controller methods
+	// lists routes
 	router.POST("/register", controller.PostRegister)
 	router.POST("/login", controller.PostLogin)
 	router.DELETE("/logout", controller.DeleteLogout)
+	router.GET("/session", controller.GetSession)
 
 	// binds cors options to the router
 	c := cors.New(cors.Options{
