@@ -10,7 +10,8 @@ usually just as a API for a front-end application.
 
 # How to use
 
-1. Download project and put them outside of your GOPATH.
+1. Download the project outside your GOPATH 
+and delete the ```.git``` file
 
 2. Download dependencies with:
 ```
@@ -23,15 +24,8 @@ $ go install
 
 5. Run sql script or alternately create the table manually.
 
-6. Create an `.env` file at root level, for example:
-```
-REDIS_SESSION_KEY=YourSecretKey
-REDIS_STORE_SIZE=10
-REDIS_STORE_ADDRESS=:6379
-REDIS_STORE_PASSWORD=
-POSTGRES=user=postgres password=password dbname=database sslmode=disable
-FRONT-END-ADDRESS=http://example.com
-```
+6. Rename the `.env.example` file to `.env`  and customize the parameters accordingly
+
 
 # Features 
 
@@ -47,7 +41,7 @@ Redis as a session store with
 and domain data with PostgreSQL,
 [lib/pq](https://github.com/lib/pq) as the driver and 
 [sqlx](https://github.com/jmoiron/sqlx) 
-to help with the raw queries.
+to help with raw queries.
 
 + Ready to handle CORS requests with 
 [rs/cors](https://github.com/rs/cors).
@@ -57,13 +51,13 @@ to help with the raw queries.
 implementation.
 
 + Fast and easy to use router with 
-[httprouter](https://github.com/julienschmidt/httprouter).
+[julienschmidt/httprouter](https://github.com/julienschmidt/httprouter).
 
 + Migration file for a `user` table. 
 Currently no automatic way of running migrations is provided.
 
 + Loads environment variables from an `.env` file 
-with the help of [godotenv](https://github.com/joho/godotenv).
+with the help of [joho/godotenv](https://github.com/joho/godotenv).
 
 + Dependency management with Go Modules.
 
