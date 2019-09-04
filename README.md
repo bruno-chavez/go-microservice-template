@@ -26,6 +26,8 @@ $ go install
 
 6. Rename the `.env.example` file to `.env`  and customize the parameters accordingly
 
+Note: Don't store the `SESSION_STORE_KEY` in your source code. 
+Ensure your key is sufficiently random and large.
 
 # Features 
 

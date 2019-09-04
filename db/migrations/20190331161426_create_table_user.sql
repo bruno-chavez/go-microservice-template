@@ -16,4 +16,3 @@ create unique index user_username_uindex
 
 create unique index user_email_uindex
     on "user" (email);
-
