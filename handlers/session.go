@@ -7,9 +7,10 @@ import (
 	"github.com/julienschmidt/httprouter"
 )
 
+// Returns current session type or "none" if it doesnt exists
 func (c *Controller) GetSession(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 
-	session, err := c.SessionStore.Get(r, "requestUser")
+	session, err := c.SessionStore.Get(r, "user")
 	if err != nil {
 		log.Println(err)
 	}
@@ -18,12 +19,12 @@ func (c *Controller) GetSession(w http.ResponseWriter, r *http.Request, _ httpro
 
 	if sessionType != nil {
 		// Type assertion needed to escape from type interface{}
-		err = writeJSON(w, sessionType.(string), http.StatusOK)
+		err = writeResponse(w, sessionType.(string), http.StatusOK)
 		if err != nil {
 			log.Println(err)
 		}
 	} else {
-		err = writeJSON(w, "none", http.StatusOK)
+		err = writeResponse(w, "none", http.StatusOK)
 		if err != nil {
 			log.Println(err)
 		}

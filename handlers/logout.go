@@ -7,9 +7,10 @@ import (
 	"net/http"
 )
 
+// Deletes current user session
 func (c *Controller) DeleteLogout(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 
-	session, err := c.SessionStore.Get(r, "requestUser")
+	session, err := c.SessionStore.Get(r, "user")
 	if err != nil {
 		log.Println(err)
 	}
@@ -21,7 +22,7 @@ func (c *Controller) DeleteLogout(w http.ResponseWriter, r *http.Request, _ http
 		log.Println(err)
 	}
 
-	err = writeJSON(w, "logged out", http.StatusOK)
+	err = writeResponse(w, "logged out", http.StatusOK)
 	if err != nil {
 		log.Println(err)
 	}

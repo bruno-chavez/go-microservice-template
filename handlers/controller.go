@@ -1,4 +1,4 @@
-// Package handlers is where all the routes are located
+// Package handlers contains the controllers for each route
 package handlers
 
 import (
@@ -7,7 +7,7 @@ import (
 	"log"
 )
 
-// Controller is used to expose the db connection pool and the session store to all the handlers.
+// Controller is used to expose the db connection pool and the session store to the controllers.
 type Controller struct {
 	Db           *sqlx.DB
 	SessionStore *redistore.RediStore

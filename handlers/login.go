@@ -16,23 +16,21 @@ type dbUser struct {
 	Email    string `db:"email"`
 }
 
-// PostLogin handles POST request to /login
+// Creates a new user session
 func (c *Controller) PostLogin(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 
-	// a requestUser struct is used for simplicity even though the username field won't be filled
-	var usr requestUser
-	err := json.NewDecoder(r.Body).Decode(&usr)
+	var requestUsr requestUser
+	err := json.NewDecoder(r.Body).Decode(&requestUsr)
 	if err != nil {
 		log.Println(err)
 	}
 
-	// the query expects a single requestUser and maps it into a dbUser
-	var queryResult dbUser
-	query := `SELECT * FROM "requestUser" WHERE email = $1;`
-
-	err = c.Db.Get(&queryResult, query, usr.Email)
+	// retrieves a user from the database and maps it to a struct
+	var dbUsr dbUser
+	query := `SELECT * FROM "user" WHERE email = $1;`
+	err = c.Db.Get(&dbUsr, query, requestUsr.Email)
 	if err != nil {
-		err = writeJSON(w, "wrong email or password", http.StatusForbidden)
+		err = writeResponse(w, "wrong email or password", http.StatusForbidden)
 		if err != nil {
 			log.Println(err)
 		}
@@ -40,9 +38,9 @@ func (c *Controller) PostLogin(w http.ResponseWriter, r *http.Request, _ httprou
 	}
 
 	// compares the request password with the one stored in the db
-	err = bcrypt.CompareHashAndPassword([]byte(queryResult.Password), usr.Password)
+	err = bcrypt.CompareHashAndPassword([]byte(dbUsr.Password), requestUsr.Password)
 	if err != nil {
-		err = writeJSON(w, "wrong email or password", http.StatusForbidden)
+		err = writeResponse(w, "wrong email or password", http.StatusForbidden)
 		if err != nil {
 			log.Println(err)
 		}
@@ -50,23 +48,21 @@ func (c *Controller) PostLogin(w http.ResponseWriter, r *http.Request, _ httprou
 	}
 
 	// retrieves the session if it exists or creates a new one if it doesn't
-	session, err := c.SessionStore.Get(r, "requestUser")
+	session, err := c.SessionStore.Get(r, "user")
 	if err != nil {
 		log.Println(err)
 	}
 
 	// sets a type and id to the session
-	session.Values["type"] = "requestUser"
-	session.Values["id"] = queryResult.Id
+	session.Values["type"] = "user"
+	session.Values["id"] = dbUsr.Id
 
-	// saves session data
 	err = session.Save(r, w)
 	if err != nil {
 		log.Println(err)
 	}
 
-	// writes response message
-	err = writeJSON(w, "authenticated", http.StatusCreated)
+	err = writeResponse(w, "authenticated", http.StatusCreated)
 	if err != nil {
 		log.Println(err)
 	}

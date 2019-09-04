@@ -5,16 +5,17 @@ import (
 	"net/http"
 )
 
-type response struct {
+type responseBody struct {
 	Message string `json:"message"`
 }
 
-func writeJSON(w http.ResponseWriter, value string, status int) error {
+// Sends a JSON HTTP Response with a generic message as the body
+func writeResponse(w http.ResponseWriter, value string, status int) error {
 
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(status)
 
-	message := response{Message: value}
+	message := responseBody{Message: value}
 	marshaledData, err := json.Marshal(message)
 	if err != nil {
 		return err
