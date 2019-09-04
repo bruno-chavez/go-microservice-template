@@ -59,32 +59,19 @@ implementation.
 Currently no automatic way of running migrations is provided.
 
 + Loads environment variables from an `.env` file 
-with the help of [joho/godotenv](https://github.com/joho/godotenv).
+with the help of [godotenv](https://github.com/joho/godotenv).
 
 + Dependency management with Go Modules.
 
 + Continuous Integration with Travis-CI.
 
-+ Each route has access to the session store 
-and the db connection pool thanks to dependency injection.
-Simply reference `c.Db` or `c.SessionStore` once 
-your handlers are methods of the `Controller` struct. 
-See how the methods `PostRegister`, `PostLogin` 
-and `DeleteLogout` are implemented 
-for examples of how you can access the db pool 
-or the session store from any controller.
-
 # To Do
 
-+ Middleware examples.
++ Middleware
 
-+ Implement HTTPS with 
-[certmagic](https://github.com/mholt/certmagic).
++ HTTPS.
 
-+ Database migrations with either 
-[sql-migrate](https://github.com/rubenv/sql-migrate), 
-[migrate](https://github.com/golang-migrate/migrate) 
-or [goose](https://github.com/pressly/goose).
++ Database migrations.
 
 + Unit testing.
 
