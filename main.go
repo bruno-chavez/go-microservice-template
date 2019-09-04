@@ -42,6 +42,14 @@ func main() {
 		log.Println(err)
 	}
 
+	// closes session store connection
+	defer func() {
+		err := store.Close()
+		if err != nil {
+			log.Println(err)
+		}
+	}()
+
 	// connects to the db
 	db, err := sqlx.Connect("postgres", os.Getenv("DB"))
 	if err != nil {
