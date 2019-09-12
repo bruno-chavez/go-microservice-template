@@ -64,6 +64,12 @@ func main() {
 		}
 	}()
 
+	// runs migrations
+	err = runMigrations(db.DB)
+	if err != nil {
+		log.Println(err)
+	}
+
 	// wraps the session store and db pool in a struct to be passed to the handlers
 	controller := &handlers.Controller{
 		Db:           db,
