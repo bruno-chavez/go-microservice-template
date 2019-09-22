@@ -55,8 +55,7 @@ implementation.
 + Fast and easy to use router with 
 [julienschmidt/httprouter](https://github.com/julienschmidt/httprouter).
 
-+ Migration file for a `user` table. 
-Currently no automatic way of running migrations is provided.
++ Go migrations with [migrator](https://github.com/lopezator/migrator).
 
 + Loads environment variables from an `.env` file 
 with the help of [godotenv](https://github.com/joho/godotenv).
@@ -70,8 +69,6 @@ with the help of [godotenv](https://github.com/joho/godotenv).
 + Middleware
 
 + HTTPS.
-
-+ Database migrations.
 
 + Unit testing.
 
