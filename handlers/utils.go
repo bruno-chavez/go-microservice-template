@@ -9,7 +9,6 @@ type responseBody struct {
 	Message string `json:"message"`
 }
 
-// Sends a JSON HTTP Response with a generic message as the body
 func writeResponse(w http.ResponseWriter, value string, status int) error {
 
 	w.Header().Set("Content-Type", "application/json")

@@ -16,7 +16,7 @@ type requestUser struct {
 }
 
 // Creates a new user
-func (c *Controller) PostRegister(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
+func (h *Handler) createUser(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 
 	var requestUsr requestUser
 	err := json.NewDecoder(r.Body).Decode(&requestUsr)
@@ -32,7 +32,7 @@ func (c *Controller) PostRegister(w http.ResponseWriter, r *http.Request, p http
 
 	// inserts the new user in the DB
 	query := `INSERT INTO "requestUser" (email, username, password) VALUES ($1, $2, $3);`
-	_, err = c.Db.Exec(query, requestUsr.Email, requestUsr.Username, hash)
+	_, err = h.Db.Exec(query, requestUsr.Email, requestUsr.Username, hash)
 	if err != nil {
 		log.Println(err)
 		err = writeResponse(w, "username or email not unique", http.StatusBadRequest)

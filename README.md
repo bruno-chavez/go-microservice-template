@@ -10,24 +10,17 @@ usually just as a API for a front-end application.
 
 # How to use
 
-1. Download the project outside your GOPATH 
-and delete the ```.git``` file
+1. Rename package, project, go mod file and delete .git directory
 
-2. Download dependencies with:
-```
-$ go install
-```
+2. Download dependencies
 
 3. Have Redis installed and a server running.
 
 4. Have PostgresSQL installed and a database created.
 
-5. Run sql script or alternately create the table manually.
+5. Rename the `.env.example` file to `.env`  and customize the parameters accordingly
 
-6. Rename the `.env.example` file to `.env`  and customize the parameters accordingly
-
-Note: Don't store the `SESSION_STORE_KEY` in your source code. 
-Ensure your key is sufficiently random and large.
+Note: Don't store the `SESSION_STORE_KEY` in your source code and ensure your key is sufficiently random and large.
 
 # Features 
 
@@ -69,15 +62,11 @@ with the help of [godotenv](https://github.com/joho/godotenv).
 
 + Middleware
 
-+ HTTPS.
-
-+ Database migrations.
-
 + Unit testing.
 
 # Contribute
 
-Found an bug or an error? Post it in the 
+Found a bug or an error? Post it in the 
 [issue tracker](https://github.com/bruno-chavez/go-web-template/issues).
 
 Want to add an awesome new feature? 

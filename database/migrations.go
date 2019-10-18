@@ -1,4 +1,4 @@
-package main
+package database
 
 import (
 	"database/sql"
@@ -11,7 +11,7 @@ func runMigrations(db *sql.DB) error {
 	// to add a new migration simply add a new struct with the format
 	// Name, Func, where func is a sql transaction as a string
 	m, err := migrator.New(migrator.Migrations(&migrator.Migration{
-		Name: "Create all",
+		Name: "Create users table",
 		Func: func(tx *sql.Tx) error {
 			_, err := tx.Exec(
 				`create table "user"

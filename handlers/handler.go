@@ -7,12 +7,9 @@ import (
 	"log"
 )
 
-// Controller is used to expose the db connection pool and the session store to the controllers.
-type Controller struct {
+// Handler is used to expose dependencies to the handlers
+type Handler struct {
 	Db           *sqlx.DB
 	SessionStore *redistore.RediStore
-}
-
-func init() {
-	log.SetFlags(log.LstdFlags | log.Lshortfile)
+	Logger       *log.Logger
 }

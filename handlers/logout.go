@@ -8,11 +8,15 @@ import (
 )
 
 // Deletes current user session
-func (c *Controller) DeleteLogout(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
+func (h *Handler) deleteSession(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 
-	session, err := c.SessionStore.Get(r, "user")
+	session, err := h.SessionStore.Get(r, "user")
 	if err != nil {
-		log.Println(err)
+		err = writeResponse(w, "no valid session was found", http.StatusNotFound)
+		if err != nil {
+			log.Println(err)
+		}
+		return
 	}
 
 	// Deletes session on the Redis store.
@@ -20,6 +24,7 @@ func (c *Controller) DeleteLogout(w http.ResponseWriter, r *http.Request, _ http
 	err = sessions.Save(r, w)
 	if err != nil {
 		log.Println(err)
+		return
 	}
 
 	err = writeResponse(w, "logged out", http.StatusOK)
