@@ -9,7 +9,7 @@ require (
 	github.com/joho/godotenv v1.3.0
 	github.com/julienschmidt/httprouter v1.2.0
 	github.com/lib/pq v1.0.0
-	github.com/lopezator/migrator v0.2.0 // indirect
+	github.com/lopezator/migrator v0.2.0
 	github.com/rs/cors v1.6.0
 	golang.org/x/crypto v0.0.0-20190605123033-f99c8df09eb5
 	google.golang.org/appengine v1.6.1 // indirect
