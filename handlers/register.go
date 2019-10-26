@@ -4,7 +4,6 @@ import (
 	"encoding/json"
 	"github.com/julienschmidt/httprouter"
 	"golang.org/x/crypto/bcrypt"
-	"log"
 	"net/http"
 )
 
@@ -21,28 +20,28 @@ func (h *Handler) createUser(w http.ResponseWriter, r *http.Request, p httproute
 	var user requestUser
 	err := json.NewDecoder(r.Body).Decode(&user)
 	if err != nil {
-		log.Println(err)
+		h.Logger.Println(err)
 	}
 
 	// hashes and salts the password
 	hash, err := bcrypt.GenerateFromPassword(user.Password, bcrypt.DefaultCost)
 	if err != nil {
-		log.Println(err)
+		h.Logger.Println(err)
 	}
 
 	query := `INSERT INTO "users" (email, username, password) VALUES ($1, $2, $3);`
 	_, err = h.Db.Exec(query, user.Email, user.Username, hash)
 	if err != nil {
-		log.Println(err)
+		h.Logger.Println(err)
 		err = writeResponse(w, "username or email not unique", http.StatusBadRequest)
 		if err != nil {
-			log.Println(err)
+			h.Logger.Println(err)
 		}
 		return
 	}
 
 	err = writeResponse(w, "user created", http.StatusCreated)
 	if err != nil {
-		log.Println(err)
+		h.Logger.Println(err)
 	}
 }

@@ -3,7 +3,6 @@ package handlers
 import (
 	"github.com/gorilla/sessions"
 	"github.com/julienschmidt/httprouter"
-	"log"
 	"net/http"
 )
 
@@ -14,7 +13,7 @@ func (h *Handler) deleteSession(w http.ResponseWriter, r *http.Request, _ httpro
 	if err != nil {
 		err = writeResponse(w, "no valid session was found", http.StatusNotFound)
 		if err != nil {
-			log.Println(err)
+			h.Logger.Println(err)
 		}
 		return
 	}
@@ -23,12 +22,12 @@ func (h *Handler) deleteSession(w http.ResponseWriter, r *http.Request, _ httpro
 	session.Options.MaxAge = -1
 	err = sessions.Save(r, w)
 	if err != nil {
-		log.Println(err)
+		h.Logger.Println(err)
 		return
 	}
 
 	err = writeResponse(w, "logged out", http.StatusOK)
 	if err != nil {
-		log.Println(err)
+		h.Logger.Println(err)
 	}
 }

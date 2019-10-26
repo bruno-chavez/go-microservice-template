@@ -4,7 +4,6 @@ import (
 	"encoding/json"
 	"github.com/julienschmidt/httprouter"
 	"golang.org/x/crypto/bcrypt"
-	"log"
 	"net/http"
 )
 
@@ -21,10 +20,10 @@ func (h *Handler) createSession(w http.ResponseWriter, r *http.Request, _ httpro
 	var requestUsr requestUser
 	err := json.NewDecoder(r.Body).Decode(&requestUsr)
 	if err != nil {
-		log.Println(err)
+		h.Logger.Println(err)
 		err = writeResponse(w, "wrong format", http.StatusBadRequest)
 		if err != nil {
-			log.Println(err)
+			h.Logger.Println(err)
 		}
 		return
 	}
@@ -35,7 +34,7 @@ func (h *Handler) createSession(w http.ResponseWriter, r *http.Request, _ httpro
 	if err != nil {
 		err = writeResponse(w, "wrong email or password", http.StatusBadRequest)
 		if err != nil {
-			log.Println(err)
+			h.Logger.Println(err)
 		}
 		return
 	}
@@ -45,7 +44,7 @@ func (h *Handler) createSession(w http.ResponseWriter, r *http.Request, _ httpro
 	if err != nil {
 		err = writeResponse(w, "wrong email or password", http.StatusUnauthorized)
 		if err != nil {
-			log.Println(err)
+			h.Logger.Println(err)
 		}
 		return
 	}
@@ -53,7 +52,7 @@ func (h *Handler) createSession(w http.ResponseWriter, r *http.Request, _ httpro
 	// retrieves the session if it exists or creates a new one if it doesn't
 	session, err := h.SessionStore.Get(r, "user")
 	if err != nil {
-		log.Println(err)
+		h.Logger.Println(err)
 	}
 
 	session.Values["type"] = "user"
@@ -61,11 +60,11 @@ func (h *Handler) createSession(w http.ResponseWriter, r *http.Request, _ httpro
 
 	err = session.Save(r, w)
 	if err != nil {
-		log.Println(err)
+		h.Logger.Println(err)
 	}
 
 	err = writeResponse(w, "authenticated", http.StatusCreated)
 	if err != nil {
-		log.Println(err)
+		h.Logger.Println(err)
 	}
 }
