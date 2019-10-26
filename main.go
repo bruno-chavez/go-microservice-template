@@ -1,4 +1,4 @@
-// Package main takes care of creating all the necessary elements for the server to run
+// Package main takes care of gluing all the elements of the app
 package main
 
 import (
@@ -16,7 +16,6 @@ func main() {
 
 	logger := log.New(os.Stdout, "", log.LstdFlags|log.Lshortfile)
 
-	// loads env variables
 	err := godotenv.Load()
 	if err != nil {
 		log.Println("Error loading .env file")
@@ -39,7 +38,6 @@ func main() {
 		log.Println(err)
 	}
 
-	// closes db connection
 	defer func() {
 		err := db.Close()
 		if err != nil {
@@ -47,7 +45,7 @@ func main() {
 		}
 	}()
 
-	// wraps the session store and db pool in a struct to be passed to the handlers
+	// wraps data to a struct to be passed to the handlers
 	controller := &handlers.Handler{
 		Db:           db,
 		SessionStore: store,
@@ -58,6 +56,6 @@ func main() {
 	if err != nil {
 		log.Println(err)
 	}
-	// starts the server
+
 	log.Println(http.ListenAndServe(":8080", handler))
 }
