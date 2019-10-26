@@ -1,4 +1,4 @@
-// Package handlers contains the controllers for each route
+// Package handlers contains the handlers for each endpoint of the app
 package handlers
 
 import (

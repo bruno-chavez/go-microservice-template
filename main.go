@@ -1,4 +1,4 @@
-// Package main takes care of gluing all the elements of the app
+// Package main takes care of gluing all the elements of the app together
 package main
 
 import (

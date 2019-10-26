@@ -1,3 +1,4 @@
+// Package session takes care of setting up the session store
 package session
 
 import (
@@ -6,6 +7,7 @@ import (
 	"strconv"
 )
 
+// NewSession creates a new Redis session store connection and returns it.
 func NewSession() (*redistore.RediStore, error) {
 
 	storeSize, err := strconv.Atoi(os.Getenv("SESSION_STORE_SIZE"))

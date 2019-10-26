@@ -1,3 +1,4 @@
+// Package database takes care of setting up the sql connection, running migrations, etc.
 package database
 
 import (
@@ -5,6 +6,7 @@ import (
 	"os"
 )
 
+// NewDB creates a new sql connection and returns it
 func NewDB() (*sqlx.DB, error) {
 
 	db, err := sqlx.Connect("postgres", os.Getenv("DB"))

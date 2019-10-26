@@ -8,9 +8,8 @@ import (
 // runs all migrations in the order they are added
 func runMigrations(db *sql.DB) error {
 
-	// to add a new migration simply add a new migrator.Migration struct with the format
+	// To add a new migration simply add a new migrator.Migration struct with the format
 	// Name, Func, where func is a sql transaction as a string
-
 	migrations := migrator.Migrations(
 		&migrator.Migration{
 			Name: "Create users table",

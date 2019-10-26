@@ -7,6 +7,7 @@ import (
 	"os"
 )
 
+// NewServer sets a http router and returns a concrete type to be used as a server handler in package main
 func (h Handler) NewServer() (http.Handler, error) {
 
 	router := httprouter.New()
