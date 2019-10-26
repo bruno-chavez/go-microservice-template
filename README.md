@@ -38,7 +38,7 @@ and domain data with PostgreSQL,
 [sqlx](https://github.com/jmoiron/sqlx) 
 to help with raw queries.
 
-+ Ready to handle CORS requests with 
++ Handles CORS requests with 
 [rs/cors](https://github.com/rs/cors).
 
 + Safely hashes and salts user passwords with the official 
@@ -59,8 +59,6 @@ with the help of [godotenv](https://github.com/joho/godotenv).
 + Continuous Integration with Travis-CI.
 
 # To Do
-
-+ Middleware
 
 + Unit testing.
 
