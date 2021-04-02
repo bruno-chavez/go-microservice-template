@@ -14,17 +14,17 @@ for a REST API in Go. Reducing boilerplate writing and speeding up development o
 + Graceful shutdown out of the box.
 + Environment variables loading from an `.env` file  with the help of [godotenv](https://github.com/joho/godotenv).
 + Dependency management with Go Modules.
-+ Optional CORS handling requests with [rs/cors](https://github.com/rs/cors) see `server/server.go` for how to enable it.
++ Optional CORS handling with [rs/cors](https://github.com/rs/cors) see `server/server.go` for how to enable it.
 
 # Continuous Integration
 `go-microservice-template` currently, it uses Github Actions for linting, testing and building the microservice. Current workflow:
 
 + Lints with [golangci-lint](https://github.com/golangci/golangci-lint).
-+ Run tests and prints out a pretty result with [tparse](https://github.com/mfridman/tparse).
++ Run unit tests and prints the results with [tparse](https://github.com/mfridman/tparse).
 + Builds binary.
 + Builds Docker Image.
 
-See [ci.yml]() for more info.
+See [ci.yml](https://github.com/bruno-chavez/go-web-template/blob/master/.github/workflows/ci.yml) for more info.
 
 # Notes
 + Previously the package was called `go-web-template`, it lacked any kind of meaningful updates lately and was too opinionated for its purpose. I decided to complete refactored it and came up with the current iteration of `go-microservice-template`.
