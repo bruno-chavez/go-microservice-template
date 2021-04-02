@@ -5,6 +5,7 @@ import (
 	"net/http"
 )
 
+// Helper function for easily writing response messages
 func writeResponse(w http.ResponseWriter, status int, key, value string) error {
 
 	w.Header().Set("Content-Type", "application/json")
