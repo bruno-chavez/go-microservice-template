@@ -7,7 +7,7 @@ import (
 	"net/http"
 )
 
-// Route Info is used for health checking as well as outputting current app version
+// Info is used for health checking as well as outputting current app version
 func (h Handler) Info() httprouter.Handle {
 	return func(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 

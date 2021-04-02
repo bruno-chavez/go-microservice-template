@@ -1,8 +1,8 @@
 package server
 
 import (
+	"github.com/bruno-chavez/go-microservice-template/handlers"
 	"github.com/julienschmidt/httprouter"
-	"go-microservice-template/handlers"
 	"net/http"
 	"os"
 	"time"
