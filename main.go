@@ -1,61 +1,56 @@
-// Package main takes care of gluing all the elements of the app together
 package main
 
 import (
+	"context"
 	"github.com/joho/godotenv"
-	_ "github.com/lib/pq"
-	"go-web-template/database"
-	"go-web-template/handlers"
-	"go-web-template/session"
+	"go-microservice-template/handlers"
+	"go-microservice-template/server"
 	"log"
 	"net/http"
 	"os"
+	"os/signal"
+	"syscall"
+	"time"
 )
 
 func main() {
-
-	logger := log.New(os.Stdout, "", log.LstdFlags|log.Lshortfile)
+	// Makes error line show for log.Println()
+	log.SetFlags(log.LstdFlags | log.Llongfile)
 
 	err := godotenv.Load()
 	if err != nil {
-		log.Println("Error loading .env file")
-	}
-
-	store, err := session.NewSession()
-	if err != nil {
 		log.Println(err)
 	}
 
-	defer func() {
-		err := store.Close()
-		if err != nil {
-			log.Println(err)
+	handler := handlers.NewHandler()
+
+	srvr := server.NewServer(handler)
+
+	// Graceful Shutdown
+	done := make(chan os.Signal, 1)
+	signal.Notify(done, os.Interrupt, syscall.SIGINT, syscall.SIGTERM)
+
+	go func() {
+		err := srvr.ListenAndServe()
+		if err != nil && err != http.ErrServerClosed {
+			log.Fatalf("listen: %s\n", err)
 		}
 	}()
+	log.Println("server started in port " + os.Getenv("PORT"))
 
-	db, err := database.NewDB()
-	if err != nil {
-		log.Println(err)
-	}
+	<-done
+	log.Println("server stopped")
 
+	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+
+	// Close connections and stuff before shutting down
 	defer func() {
-		err := db.Close()
-		if err != nil {
-			log.Println(err)
-		}
+		cancel()
 	}()
 
-	// wraps data to a struct to be passed to the handlers
-	controller := &handlers.Handler{
-		Db:           db,
-		SessionStore: store,
-		Logger:       logger,
+	if err := srvr.Shutdown(ctx); err != nil {
+		log.Fatalf("Server Shutdown Failed:%+v", err)
 	}
 
-	handler, err := controller.NewServer()
-	if err != nil {
-		log.Println(err)
-	}
-
-	log.Println(http.ListenAndServe(":8080", handler))
+	log.Println("server exited properly")
 }
