@@ -6,9 +6,9 @@ for a REST API in Go. Reducing boilerplate writing and speeding up development o
 
 # How to use
 1. Clone repository.
-2. Delete `go.mod`, `go.sum`, `LICENSE` and `.git`.
-3. Run `go mod init`.
-4. Rename the module reference of local packages inside `server/` and `main.go`. Example:
+2. Delete `LICENSE` and `.git`.
+3. Rename module name on `go.mod`.
+4. Rename the module reference of local packages inside `server/` and `main.go` with the new module name. Example:
 ```go
 import (
     // rename with you module name
