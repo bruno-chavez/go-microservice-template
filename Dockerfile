@@ -1,9 +1,20 @@
-FROM golang:1.15 as builder
+FROM golang:1.15-alpine as builder
 
-WORKDIR /service
+WORKDIR /microservice
+
+# Creates non root user
+ENV USER=appuser
+ENV UID=10001
+RUN adduser \
+    --disabled-password \
+    --gecos "" \
+    --home "/nonexistent" \
+    --shell "/sbin/nologin" \
+    --no-create-home \
+    --uid "${UID}" \
+    "${USER}"
 
 COPY go.mod go.sum ./
-
 RUN go mod download
 
 COPY . .
@@ -15,8 +26,17 @@ FROM scratch
 
 ENV PORT=8080
 
+# Non root user info
+COPY --from=builder /etc/passwd /etc/passwd
+COPY --from=builder /etc/group /etc/group
+
+# Certs for making https requests
 COPY --from=builder /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/
-COPY --from=builder /service/microservice .
+
+COPY --from=builder /microservice/microservice .
+
+# Running as appuser
+USER appuser:appuser
 
 EXPOSE ${PORT}
 ENTRYPOINT ["/microservice"]

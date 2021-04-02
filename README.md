@@ -23,6 +23,7 @@ import (
 
 # Features
 + Fast and easy to use router with [julienschmidt/httprouter](https://github.com/julienschmidt/httprouter).
++ Ready to use `Dockerfile` for building a secure and small Docker Image.
 + Graceful shutdown out of the box.
 + Environment variables loading from an `.env` file  with the help of [godotenv](https://github.com/joho/godotenv).
 + Dependency management with Go Modules.
