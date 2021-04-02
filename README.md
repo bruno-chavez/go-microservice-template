@@ -1,3 +1,4 @@
+[![Go Reference](https://pkg.go.dev/badge/github.com/bruno-chavez/go-microservice-template.svg)](https://pkg.go.dev/github.com/bruno-chavez/go-microservice-template)
 [![Go Report Card](https://goreportcard.com/badge/github.com/bruno-chavez/go-microservice-template)](https://goreportcard.com/report/github.com/bruno-chavez/go-microservice-template)
 
 # Description
