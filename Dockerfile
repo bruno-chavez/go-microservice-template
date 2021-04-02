@@ -1,17 +1,14 @@
 FROM golang:1.15 as builder
 
-ENV GO111MODULE=on
-
 WORKDIR /service
 
-COPY go.mod .
-COPY go.sum .
+COPY go.mod go.sum ./
 
 RUN go mod download
 
 COPY . .
 
-RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build
+RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o microservice
 
 
 FROM scratch
@@ -19,9 +16,7 @@ FROM scratch
 ENV PORT=8080
 
 COPY --from=builder /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/
-
-# Rename github.com/bruno-chavez/go-microservice-template with your module name
-COPY --from=builder /service/github.com/bruno-chavez/go-microservice-template .
+COPY --from=builder /service/microservice .
 
 EXPOSE ${PORT}
-ENTRYPOINT ["/search"]
+ENTRYPOINT ["/microservice"]
