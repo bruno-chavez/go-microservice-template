@@ -1,3 +1,4 @@
+// Package server contains all the logic regarding the http server, CORS, and route registering.
 package server
 
 import (
