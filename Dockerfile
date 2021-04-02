@@ -19,7 +19,7 @@ FROM scratch
 ENV PORT=8080
 
 COPY --from=builder /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/
-COPY --from=builder /service/search .
+COPY --from=builder /service/go-microservice-template .
 
 EXPOSE ${PORT}
 ENTRYPOINT ["/search"]
