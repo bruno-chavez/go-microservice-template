@@ -1,77 +1,39 @@
-[![GoDoc](https://godoc.org/github.com/bruno-chavez/go-web-template?status.svg)](https://godoc.org/github.com/bruno-chavez/go-web-template)
-[![Build Status](https://travis-ci.org/bruno-chavez/go-web-template.svg?branch=master)](https://travis-ci.org/bruno-chavez/go-web-template)
-[![Go Report Card](https://goreportcard.com/badge/github.com/bruno-chavez/go-web-template)](https://goreportcard.com/report/github.com/bruno-chavez/go-web-template)
-
 # Description
-
-`go-web-template` main purpose is to be a starting point 
-for web development in Go, 
-usually just as a API for a front-end application.
+`go-microservice-template` main purpose is to be a starting point 
+for a REST API in Go. Reducing boilerplate writing and speeding up development of new microservices
 
 # How to use
+1. Clone repository.
+2. Delete `go.mod`, `go.sum`, `LICENSE` and `.git`.
+3. Run `go mod init`.
+4. Rename the binary name on `Dockerfile` with the name of you module. Do the same with the files inside `handlers/`, `server/` and `main.go`.
+5. Rename the `.env.example` file to `.env` and customize the parameters accordingly.
 
-1. Rename package, project, go mod file and delete .git directory
-
-2. Download dependencies
-
-3. Have Redis installed and a server running.
-
-4. Have PostgresSQL installed and a database created.
-
-5. Rename the `.env.example` file to `.env`  and customize the parameters accordingly
-
-Note: Don't store the `SESSION_STORE_KEY` in your source code and ensure your key is sufficiently random and large.
-
-# Features 
-
-+ Ready to use custom authentication routes, for registering, 
-login in and login out users.
-
-+ Ready to use cookie based sessions with 
-[gorilla/sessions](https://github.com/gorilla/sessions) and 
-Redis as a session store with 
-[redistore](https://github.com/boj/redistore).
-
-+ Ready to use Relational Database connection to store user 
-and domain data with PostgreSQL,
-[lib/pq](https://github.com/lib/pq) as the driver and 
-[sqlx](https://github.com/jmoiron/sqlx) 
-to help with raw queries.
-
-+ Handles CORS requests with 
-[rs/cors](https://github.com/rs/cors).
-
-+ Safely hashes and salts user passwords with the official 
-[bcrypt](https://godoc.org/golang.org/x/crypto/bcrypt) 
-implementation.
-
-+ Fast and easy to use router with 
-[julienschmidt/httprouter](https://github.com/julienschmidt/httprouter).
-
-+ Migration file for a `user` table. 
-Currently no automatic way of running migrations is provided.
-
-+ Loads environment variables from an `.env` file 
-with the help of [godotenv](https://github.com/joho/godotenv).
-
+# Features
++ Fast and easy to use router with [julienschmidt/httprouter](https://github.com/julienschmidt/httprouter).
++ Graceful shutdown out of the box.
++ Environment variables loading from an `.env` file  with the help of [godotenv](https://github.com/joho/godotenv).
 + Dependency management with Go Modules.
++ Optional CORS handling with [rs/cors](https://github.com/rs/cors) see `server/server.go` for how to enable it.
 
-+ Continuous Integration with Travis-CI.
+# Continuous Integration
+`go-microservice-template` currently, it uses Github Actions for linting, testing and building the microservice. Current workflow:
 
-# To Do
++ Lints with [golangci-lint](https://github.com/golangci/golangci-lint).
++ Run unit tests and prints the results with [tparse](https://github.com/mfridman/tparse).
++ Builds binary.
++ Builds Docker Image.
 
-+ Unit testing.
+See [ci.yml](https://github.com/bruno-chavez/go-web-template/blob/master/.github/workflows/ci.yml) for more info.
+
+# Notes
++ Previously the module was called `go-web-template`, it lacked any kind of meaningful updates and was too opinionated for its purpose. I decided to complete refactor it and came up with the current iteration of `go-microservice-template`.
 
 # Contribute
+Found a bug or an error? Post it in the[issue tracker](https://github.com/bruno-chavez/go-microservice-template/issues).
 
-Found a bug or an error? Post it in the 
-[issue tracker](https://github.com/bruno-chavez/go-web-template/issues).
-
-Want to add an awesome new feature? 
-[Fork](https://github.com/bruno-chavez/go-web-template/fork) 
-this repository, add your feature on a new branch, 
-then send a pull request.
+Want to add an awesome new feature? [Fork](https://github.com/bruno-chavez/go-microservice-template/fork) this repository, add your feature on a new branch, then send a pull request.
 
 # License
 The MIT License (MIT)
-Copyright (c) 2019 Bruno Chavez
+Copyright (c) 2021 Bruno Chavez

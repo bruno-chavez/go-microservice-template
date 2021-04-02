@@ -1,15 +1,11 @@
-// Package handlers contains the handlers for each endpoint of the app
+// Package handlers contains all the routes for the API
 package handlers
 
-import (
-	"github.com/jmoiron/sqlx"
-	"gopkg.in/boj/redistore.v1"
-	"log"
-)
+// Type Handler contains all the routes as methods.
+// This makes it easy to spread client, secrets, etc between your routes.
+// In case you need to add one of those said common parts, you just need to add them to your struct definition.
+type Handler struct{}
 
-// Handler is used to expose dependencies to the handlers
-type Handler struct {
-	Db           *sqlx.DB
-	SessionStore *redistore.RediStore
-	Logger       *log.Logger
+func NewHandler() *Handler {
+	return &Handler{}
 }

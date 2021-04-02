@@ -1,0 +1,36 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - master
+      - feature/*
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Set up Go
+        uses: actions/setup-go@v2
+        with:
+          go-version: 1.15
+
+      - name: Lint
+        run: |
+          curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | sh -s v1.39.0
+          ./bin/golangci-lint run
+
+      - name: Test
+        run: |
+          wget -o -q https://github.com/mfridman/tparse/releases/download/v0.8.3/tparse_0.8.3_Linux_x86_64.tar.gz -O tparse.tar.gz
+          tar xvzf tparse.tar.gz
+          go test ./... -json -cover | ./tparse
+
+      - name: Build Go binary
+        run: go build
+
+      - name: Build Docker Image
+        run: docker build -t $(echo $GITHUB_SHA | head -c7) .
