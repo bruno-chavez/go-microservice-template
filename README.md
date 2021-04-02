@@ -8,7 +8,17 @@ for a REST API in Go. Reducing boilerplate writing and speeding up development o
 1. Clone repository.
 2. Delete `go.mod`, `go.sum`, `LICENSE` and `.git`.
 3. Run `go mod init`.
-4. Rename the binary name on `Dockerfile` with the name of you module. Do the same with the files inside `handlers/`, `server/` and `main.go`.
+4. Rename the module reference of local packages inside `server/` and `main.go`. Example:
+```go
+import (
+    // rename with you module name
+	"github.com/bruno-chavez/go-microservice-template/handlers"
+	"github.com/julienschmidt/httprouter"
+	"net/http"
+	"os"
+	"time"
+)
+```
 5. Rename the `.env.example` file to `.env` and customize the parameters accordingly.
 
 # Features
