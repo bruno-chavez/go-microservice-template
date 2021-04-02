@@ -34,4 +34,4 @@ jobs:
         run: go build
 
       - name: Build Docker Image
-        run: docker build -t $(echo $GITHUB_SHA | head -c7) .
+        run: docker build .
