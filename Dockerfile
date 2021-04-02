@@ -1,6 +1,6 @@
 FROM golang:1.15 as builder
 
-WORKDIR /service
+WORKDIR /microservice
 
 # Creates non root user
 ENV USER=appuser
