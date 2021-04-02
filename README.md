@@ -27,7 +27,7 @@ for a REST API in Go. Reducing boilerplate writing and speeding up development o
 See [ci.yml](https://github.com/bruno-chavez/go-web-template/blob/master/.github/workflows/ci.yml) for more info.
 
 # Notes
-+ Previously the package was called `go-web-template`, it lacked any kind of meaningful updates lately and was too opinionated for its purpose. I decided to complete refactored it and came up with the current iteration of `go-microservice-template`.
++ Previously the package was called `go-web-template`, it lacked any kind of meaningful updates and was too opinionated for its purpose. I decided to complete refactored it and came up with the current iteration of `go-microservice-template`.
 
 # Contribute
 Found a bug or an error? Post it in the[issue tracker](https://github.com/bruno-chavez/go-microservice-template/issues).
