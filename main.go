@@ -2,9 +2,9 @@ package main
 
 import (
 	"context"
+	"github.com/bruno-chavez/go-microservice-template/handlers"
+	"github.com/bruno-chavez/go-microservice-template/server"
 	"github.com/joho/godotenv"
-	"go-microservice-template/handlers"
-	"go-microservice-template/server"
 	"log"
 	"net/http"
 	"os"

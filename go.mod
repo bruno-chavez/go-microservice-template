@@ -1,4 +1,4 @@
-module go-microservice-template
+module github.com/bruno-chavez/go-microservice-template
 
 go 1.15
 
