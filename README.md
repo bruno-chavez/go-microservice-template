@@ -10,13 +10,13 @@ for a REST API in Go. Reducing boilerplate writing and speeding up development o
 3. Rename module name on `go.mod`.
 4. Rename the module reference of local packages inside `server/` and `main.go` with the new module name. Example:
 ```go
-import (
+import ( 
     // rename with you module name
-	"github.com/bruno-chavez/go-microservice-template/handlers"
-	"github.com/julienschmidt/httprouter"
-	"net/http"
-	"os"
-	"time"
+    "github.com/bruno-chavez/go-microservice-template/handlers"
+    "github.com/julienschmidt/httprouter"
+    "net/http"
+    "os"
+    "time"
 )
 ```
 5. Rename the `.env.example` file to `.env` and customize the parameters accordingly.
