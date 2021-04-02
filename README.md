@@ -1,3 +1,5 @@
+[![Go Report Card](https://goreportcard.com/badge/github.com/bruno-chavez/go-microservice-template)](https://goreportcard.com/report/github.com/bruno-chavez/go-microservice-template)
+
 # Description
 `go-microservice-template` main purpose is to be a starting point 
 for a REST API in Go. Reducing boilerplate writing and speeding up development of new microservices
