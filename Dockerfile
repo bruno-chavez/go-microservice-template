@@ -33,7 +33,7 @@ COPY --from=builder /etc/group /etc/group
 # Certs for making https requests
 COPY --from=builder /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/
 
-COPY --from=builder /service/microservice .
+COPY --from=builder /microservice/microservice .
 
 # Running as appuser
 USER appuser:appuser
