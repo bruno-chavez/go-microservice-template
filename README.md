@@ -3,7 +3,7 @@
 
 # Description
 `go-microservice-template` main purpose is to be a starting point 
-for a REST API in Go. Reducing boilerplate writing and speeding up development of new microservices
+for a REST API in Go. Reducing boilerplate writing and speeding up development of new microservices.
 
 # How to use
 1. Clone repository.
@@ -31,7 +31,7 @@ import (
 + Optional CORS handling with [rs/cors](https://github.com/rs/cors), see `server/server.go` for how to enable it.
 
 # Continuous Integration
-`go-microservice-template` currently, it uses Github Actions for linting, testing and building the microservice. Current workflow:
+`go-microservice-template` currently uses GitHub Actions for running a CI pipeline containing linting, testing and building the binary and Docker image. Current workflow:
 
 + Lints with [golangci-lint](https://github.com/golangci/golangci-lint).
 + Run unit tests and prints the results with [tparse](https://github.com/mfridman/tparse).
