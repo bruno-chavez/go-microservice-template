@@ -1,11 +1,6 @@
 name: CI
 
-on:
-  push:
-    branches:
-      - master
-      - feature/*
-      - hotfix/*
+on: [push, pull_request]
 
 jobs:
   ci:
@@ -21,7 +16,7 @@ jobs:
 
       - name: Lint
         run: |
-          curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | sh -s v1.39.0
+          curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | sh -s v1.41.1
           ./bin/golangci-lint run
 
       - name: Test
